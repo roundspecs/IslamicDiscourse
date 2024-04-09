@@ -7,6 +7,7 @@ class Discourse:
     nodes = get_nodes()
 
     def start(self):
+        self.__clear_screen()
         print("Assalamu alaikum")
         print(
             "Welcome to the discourse! Most of the arguments are taken from lectures"
@@ -15,10 +16,11 @@ class Discourse:
         )
         input("Press enter to continue")
         self.show_response(ROOT_NODE_ID)
+        self.__clear_screen()
         print("Assalamu alaikum")
 
     def add_response(self, id: int):
-        def __get_new_id(self):
+        def __get_new_id():
             ids_taken = [0 for i in self.nodes]
             for id_taken in self.nodes.keys():
                 ids_taken[id_taken] = 1
@@ -39,6 +41,7 @@ class Discourse:
                 "Apologist" if self.nodes[id]["person"] == "Inquirer" else "Inquirer"
             ),
             "message": input("Enter message: "),
+            "source": input("Enter source (or leave empty): "),
             "responses": [],
         }
         self.nodes[new_node["id"]] = new_node
@@ -59,7 +62,7 @@ class Discourse:
         self.edit_response(id)
 
     def remove_response(self, id: int):
-        def __remove_response(self, id: int):
+        def __remove_response(id: int):
             children = self.nodes[id]["responses"]
             for child in children:
                 self.__remove_response(child)
@@ -81,8 +84,11 @@ class Discourse:
     def show_response(self, id: int):
         self.__clear_screen()
         print(
-            f"{self.nodes[id]['person']}: {self.nodes[id]['message']} #{self.nodes[id]['id']}\n"
+            f"{self.nodes[id]['person']}: {self.nodes[id]['message']} #{self.nodes[id]['id']}"
         )
+        if self.nodes[id]["source"]:
+            print(f"Source: {self.nodes[id]['source']}")
+        print()
 
         print("Responses:")
         for i, responce_id in enumerate(self.nodes[id]["responses"]):
