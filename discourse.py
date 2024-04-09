@@ -8,7 +8,11 @@ class Discourse:
 
     def start(self):
         print("Assalamu alaikum")
-        print("Welcome to the discourse!")
+        print(
+            "Welcome to the discourse! Most of the arguments are taken from lectures"
+            " and books of prominent scholars and daʿi's. This is a tool to help you "
+            "understand the arguments and counter-arguments."
+        )
         input("Press enter to continue")
         self.show_response(ROOT_NODE_ID)
         print("Assalamu alaikum")
