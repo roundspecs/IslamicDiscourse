@@ -14,12 +14,23 @@ class Discourse:
         print("Assalamu alaikum")
 
     def add_response(self, id: int):
+        def __get_new_id(self):
+            ids_taken = [0 for i in self.nodes]
+            for id_taken in self.nodes.keys():
+                ids_taken[id_taken] = 1
+            new_id = len(self.nodes)
+            for i in ids_taken:
+                if i == 0:
+                    new_id = i
+                    break
+            return new_id
+
         self.__clear_screen()
         print(
             f"Adding response to: {self.nodes[id]['person']}: {self.nodes[id]['message']} #{id}\n"
         )
         new_node = {
-            "id": self.__get_new_id(),
+            "id": __get_new_id(),
             "person": (
                 "Apologist" if self.nodes[id]["person"] == "Inquirer" else "Inquirer"
             ),
@@ -29,20 +40,6 @@ class Discourse:
         self.nodes[new_node["id"]] = new_node
         self.nodes[id]["responses"].append(new_node["id"])
         update_nodes(self.nodes)
-
-    def __clear_screen(self):
-        sys.stdout.write("\033[H\033[J")
-
-    def __get_new_id(self):
-        ids_taken = [0 for i in self.nodes]
-        for id_taken in self.nodes.keys():
-            ids_taken[id_taken] = 1
-        new_id = len(self.nodes)
-        for i in ids_taken:
-            if i == 0:
-                new_id = i
-                break
-        return new_id
 
     def edit_response(self, id: int):
         self.__clear_screen()
@@ -57,13 +54,13 @@ class Discourse:
         update_nodes(self.nodes)
         self.edit_response(id)
 
-    def __remove_response(self, id: int):
-        children = self.nodes[id]["responses"]
-        for child in children:
-            self.__remove_response(child)
-        del self.nodes[id]
-
     def remove_response(self, id: int):
+        def __remove_response(self, id: int):
+            children = self.nodes[id]["responses"]
+            for child in children:
+                self.__remove_response(child)
+            del self.nodes[id]
+
         self.__clear_screen()
         if id == ROOT_NODE_ID:
             print("Cannot remove root node")
@@ -74,7 +71,7 @@ class Discourse:
         print("Are you sure you want to remove this response and all it's children?")
         ans = input("Enter [y/n]: ")
         if ans == "y":
-            self.__remove_response(id)
+            __remove_response(id)
         update_nodes(self.nodes)
 
     def show_response(self, id: int):
@@ -103,3 +100,6 @@ class Discourse:
         else:
             self.show_response(self.nodes[id]["responses"][int(ans) - 1])
         self.show_response(id)
+
+    def __clear_screen(self):
+        sys.stdout.write("\033[H\033[J")
