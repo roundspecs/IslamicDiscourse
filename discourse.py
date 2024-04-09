@@ -11,7 +11,7 @@ class Discourse:
         print("Assalamu alaikum")
 
     def add_response(self, id: int):
-        sys.stdout.write("\033[H\033[J")
+        self.__clear_screen()
         print(
             f"Adding response to: {self.nodes[id]['person']}: {self.nodes[id]['message']} #{id}\n"
         )
@@ -27,6 +27,9 @@ class Discourse:
         self.nodes[id]["responses"].append(new_node["id"])
         update_nodes(self.nodes)
 
+    def __clear_screen(self):
+        sys.stdout.write("\033[H\033[J")
+
     def __get_new_id(self):
         ids_taken = [0 for i in self.nodes]
         for id_taken in self.nodes.keys():
@@ -39,7 +42,7 @@ class Discourse:
         return new_id
 
     def edit_response(self, id: int):
-        sys.stdout.write("\033[H\033[J")
+        self.__clear_screen()
         print(f"{self.nodes[id]['person']}: {self.nodes[id]['message']} #{id}\n")
         print("1. Edit message")
         print("0. Back")
@@ -58,8 +61,8 @@ class Discourse:
         del self.nodes[id]
 
     def remove_response(self, id: int):
+        self.__clear_screen()
         if id == ROOT_NODE_ID:
-            sys.stdout.write("\033[H\033[J")
             print("Cannot remove root node")
             input("Press enter to continue")
             self.show_response(id)
@@ -72,7 +75,7 @@ class Discourse:
         update_nodes(self.nodes)
 
     def show_response(self, id: int):
-        sys.stdout.write("\033[H\033[J")
+        self.__clear_screen()
         print(
             f"{self.nodes[id]['person']}: {self.nodes[id]['message']} #{self.nodes[id]['id']}\n"
         )
