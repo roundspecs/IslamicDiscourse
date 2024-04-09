@@ -17,7 +17,9 @@ class Discourse:
         )
         new_node = {
             "id": self.__get_new_id(),
-            "person": input("Enter person: ").title(),
+            "person": (
+                "Apologist" if self.nodes[id]["person"] == "Inquirer" else "Inquirer"
+            ),
             "message": input("Enter message: "),
             "responses": [],
         }
