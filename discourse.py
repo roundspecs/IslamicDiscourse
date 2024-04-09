@@ -7,6 +7,9 @@ class Discourse:
     nodes = get_nodes()
 
     def start(self):
+        print("Assalamu alaikum")
+        print("Welcome to the discourse!")
+        input("Press enter to continue")
         self.show_response(ROOT_NODE_ID)
         print("Assalamu alaikum")
 
