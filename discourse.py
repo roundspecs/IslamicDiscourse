@@ -5,11 +5,12 @@ from constants import ROOT_NODE_ID
 
 class Discourse:
     nodes = get_nodes()
+    history = []
 
     def start(self):
         self.__clear_screen()
-        print("Assalamu alaikum")
         print(
+            "Assalamu alaikum\n"
             "Welcome to the discourse! Most of the arguments are taken from lectures"
             " and books of prominent scholars and daʿi's. This is a tool to help you "
             "understand the arguments and counter-arguments."
@@ -83,9 +84,14 @@ class Discourse:
 
     def show_response(self, id: int):
         self.__clear_screen()
-        print(
-            f"{self.nodes[id]['person']}: {self.nodes[id]['message']} #{self.nodes[id]['id']}"
-        )
+        self.history.append(id)
+
+        print("History:")
+        for node_id in self.history:
+            print(
+                f"{self.nodes[node_id]['person']}: {self.nodes[node_id]['message']} #{node_id}"
+            )
+        print()
         if self.nodes[id]["source"]:
             print(f"Source: {self.nodes[id]['source']}")
         print()
@@ -104,12 +110,14 @@ class Discourse:
             self.edit_response(id)
         elif ans == "remove":
             self.remove_response(id)
-            return
+            self.history.pop()
         elif ans == "0":
-            return
+            self.history.pop()
         else:
             self.show_response(self.nodes[id]["responses"][int(ans) - 1])
-        self.show_response(id)
+
+        if self.history:
+            self.show_response(self.history.pop())
 
     def __clear_screen(self):
         sys.stdout.write("\033[H\033[J")
