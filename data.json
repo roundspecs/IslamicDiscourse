@@ -1,0 +1,41 @@
+{
+    "nodes": [
+        {
+            "id": 0,
+            "person": "Apologist",
+            "message": "Ask me anything",
+            "responses": [
+                1,
+                4
+            ]
+        },
+        {
+            "id": 1,
+            "person": "Inquirer",
+            "message": "Is Music Haram?",
+            "responses": [
+                2
+            ]
+        },
+        {
+            "id": 2,
+            "person": "Apologist",
+            "message": "Yes",
+            "responses": [
+                3
+            ]
+        },
+        {
+            "id": 3,
+            "person": "Inquirer",
+            "message": "How is music haram when it is everywhere?",
+            "responses": []
+        },
+        {
+            "id": 4,
+            "person": "Apologist",
+            "message": "Is Islam true?",
+            "responses": []
+        }
+    ]
+}
